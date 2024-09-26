@@ -1,11 +1,10 @@
 import openai
 from flask import Flask, request, render_template
 
-# Initialize Flask app
 app = Flask(__name__)
 
 # Set up your OpenAI API key
-openai.api_key = 'Your_Openai_API_Key'  # Make sure to keep your API key secure
+openai.api_key = 'Your_Openai_API_Key'  
 
 def generate_code_comments(code):
     """
@@ -28,7 +27,6 @@ def generate_code_comments(code):
             temperature=0.5,
         )
         
-        # Return the generated response
         return response['choices'][0]['message']['content'].strip()
 
     except Exception as e:
@@ -46,7 +44,6 @@ def comment():
     """
     user_code = request.form['code']
     
-    # Call the function to generate comments
     commented_code = generate_code_comments(user_code)
     
     return render_template('index.html', input_code=user_code, commented_code=commented_code)
